@@ -15,11 +15,6 @@ function PatientList() {
             <Patient />
             <Patient />
             <Patient />
-            <Patient />
-            <Patient />
-            <Patient />
-            <Patient />
-            <Patient />
             </div>
         </div>
     )

@@ -1,22 +1,41 @@
 import { useState } from 'react'
+import Validation from './Validation'
 
-function Form() {
+function Form({ patients, setPatients }) {
+
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [admissionDate, setAdmissionDate] = useState('')
     const [symptoms, setSymptoms] = useState('')
-    const [error, setError] = useState(false)
+    const [validation, setValidation] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault()
 
         if ([name, surname, email, admissionDate, symptoms].includes('')) {
-            setError(true)
+            setValidation(true)
             return
         }
-        
-        setError(false)
+
+        setValidation(false)
+
+        const patientObject = {
+            id: Date.now(),
+            name,
+            surname,
+            email,
+            admissionDate,
+            symptoms
+        }
+
+        setPatients([...patients, patientObject])
+
+        setName('')
+        setSurname('')
+        setEmail('')
+        setAdmissionDate('')
+        setSymptoms('')
 
     }
 
@@ -27,11 +46,13 @@ function Form() {
                 <span className="font-bold text-indigo-600">manage them</span>
             </p>
 
-            <form 
-            onSubmit={handleSubmit}
-            className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
 
-                {error && <p className="bg-red-700 mb-5 uppercase font-bold text-white p-3 text-center rounded-md">All fields are required</p>}
+                {validation && <Validation
+                                    errorMessage={'All fields are required'}
+                                />}
 
                 <div className="mb-5">
                     <label
@@ -45,7 +66,7 @@ function Form() {
                         type="text"
                         placeholder="Patient's First Name"
                         value={name}
-                        onChange={ e => setName(e.target.value)}/>
+                        onChange={e => setName(e.target.value)} />
                 </div>
                 <div className="mb-5">
                     <label
@@ -59,7 +80,7 @@ function Form() {
                         type="text"
                         placeholder="Patient's Last Name"
                         value={surname}
-                        onChange={ e => setSurname(e.target.value)}/>
+                        onChange={e => setSurname(e.target.value)} />
                 </div>
                 <div className="mb-5">
                     <label
@@ -71,9 +92,9 @@ function Form() {
                         className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                         id="email"
                         type="email"
-                        placeholder="Patient's Email" 
+                        placeholder="Patient's Email"
                         value={email}
-                        onChange={ e => setEmail(e.target.value)}/>
+                        onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="mb-5">
                     <label
@@ -86,7 +107,7 @@ function Form() {
                         id="surname"
                         type="date"
                         value={admissionDate}
-                        onChange={ e => setAdmissionDate(e.target.value)}/>
+                        onChange={e => setAdmissionDate(e.target.value)} />
                 </div>
                 <div className="mb-5">
                     <label
@@ -94,20 +115,20 @@ function Form() {
                         htmlFor="symptoms">
                         Symptoms
                     </label>
-                    <textarea 
-                    className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                    name="symptoms" 
-                    id="" 
-                    cols="30" 
-                    rows="2" 
-                    placeholder="Describe the symptoms here..."
-                    value={symptoms}
-                    onChange={ e => setSymptoms(e.target.value)}/>
+                    <textarea
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        name="symptoms"
+                        id=""
+                        cols="30"
+                        rows="2"
+                        placeholder="Describe the symptoms here..."
+                        value={symptoms}
+                        onChange={e => setSymptoms(e.target.value)} />
                 </div>
-                <input 
-                className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 rounded-md cursor-pointer transition-all"
-                type="submit" 
-                value='Add Patient'/>
+                <input
+                    className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 rounded-md cursor-pointer transition-all"
+                    type="submit"
+                    value='Add Patient' />
             </form>
         </div>
     )
