@@ -21,7 +21,7 @@ function Form({ patients, setPatients }) {
         setValidation(false)
 
         const patientObject = {
-            id: Date.now(),
+            id: Date.now().toString(36).substring(2),
             name,
             surname,
             email,
@@ -29,7 +29,7 @@ function Form({ patients, setPatients }) {
             symptoms
         }
 
-        setPatients([...patients, patientObject])
+        setPatients([ patientObject, ...patients ])
 
         setName('')
         setSurname('')
