@@ -1,6 +1,6 @@
 import Patient from "./Patient"
 
-function PatientList({ patients, setPatient }) {
+function PatientList({ patients, setPatient, deletePatient }) {
 
     return (
         <div className="md:w-1/2 lg:w-3/5">
@@ -14,7 +14,7 @@ function PatientList({ patients, setPatient }) {
                         </span>
                     </p>
 
-                    {patients.map(patient => <Patient key={patient.id} patient={patient} setPatient={setPatient} />)}
+                    {patients.map(patient => <Patient key={patient.id} patient={patient} setPatient={setPatient}n deletePatient={deletePatient} />)}
                 </>
             ) : (
                 <>

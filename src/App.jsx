@@ -7,6 +7,10 @@ function App() {
   const [patients, setPatients] = useState([])
   const [patient, setPatient] = useState({})
 
+  function deletePatient(id) {
+    const patientsFiltered = patients.filter(patient => patient.id !== id)
+    setPatients(patientsFiltered)
+  }
 
 
 
@@ -23,7 +27,8 @@ function App() {
         />
         <PatientList 
         patients={patients}
-        setPatient={setPatient}/>
+        setPatient={setPatient}
+        deletePatient={deletePatient} />
       </div>
     </div>
   )

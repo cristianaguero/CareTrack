@@ -1,8 +1,15 @@
 
 
-function Patient( {patient, setPatient} ) {
+function Patient( {patient, setPatient, deletePatient} ) {
 
-    const { name, surname, email, admissionDate, symptoms } = patient
+    const { name, surname, email, admissionDate, symptoms, id } = patient
+
+    function handleDelete() {
+        const confirm = window.confirm('Are you sure you want to delete this patient?')
+        if(confirm) {
+            deletePatient(id)
+        }
+    }
 
     return (
         <div className="mx-5 mb-3 bg-white shadow-md px-5 py-10 rounded-xl">
@@ -27,7 +34,8 @@ function Patient( {patient, setPatient} ) {
                 onClick={() =>setPatient(patient)}>
                     Edit
                 </button>
-                <button type="button" className="py-2 px-10 bg-red-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg">
+                <button type="button" className="py-2 px-10 bg-red-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg"
+                onClick={handleDelete}>
                     Delete
                 </button>
             </div>
