@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Validation from './Validation'
 
-function Form({ patients, setPatients }) {
+function Form({ patients, setPatients, patient, setPatient }) {
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
@@ -9,6 +9,23 @@ function Form({ patients, setPatients }) {
     const [admissionDate, setAdmissionDate] = useState('')
     const [symptoms, setSymptoms] = useState('')
     const [validation, setValidation] = useState(false)
+
+    useEffect(() => {
+        if (Object.keys(patient).length) {
+            const { name, surname, email, admissionDate, symptoms } = patient
+            setName(name)
+            setSurname(surname)
+            setEmail(email)
+            setAdmissionDate(admissionDate)
+            setSymptoms(symptoms)
+        }
+    }, [patient])
+
+    function createId() {
+        const date = Date.now().toString(36).substring(2)
+        const random = Math.random().toString(36).substring(2)
+        return date + random
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -21,7 +38,6 @@ function Form({ patients, setPatients }) {
         setValidation(false)
 
         const patientObject = {
-            id: Date.now().toString(36).substring(2),
             name,
             surname,
             email,
@@ -29,7 +45,15 @@ function Form({ patients, setPatients }) {
             symptoms
         }
 
-        setPatients([ patientObject, ...patients ])
+        if(patient.id) {
+            patientObject.id = patient.id
+            const patientsEdited = patients.map(item => item.id === patient.id ? patientObject : item)
+            setPatients(patientsEdited)
+            setPatient({})
+        } else {
+            patientObject.id = createId()
+            setPatients([ patientObject, ...patients ])
+        }    
 
         setName('')
         setSurname('')
@@ -128,7 +152,7 @@ function Form({ patients, setPatients }) {
                 <input
                     className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 rounded-md cursor-pointer transition-all"
                     type="submit"
-                    value='Add Patient' />
+                    value={ patient.id ? 'Edit Patient' : 'Add Patient' } />
             </form>
         </div>
     )
