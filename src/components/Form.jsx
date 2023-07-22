@@ -7,16 +7,18 @@ function Form({ patients, setPatients, patient, setPatient }) {
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [admissionDate, setAdmissionDate] = useState('')
+    const [hour, setHour] = useState('')
     const [symptoms, setSymptoms] = useState('')
     const [validation, setValidation] = useState(false)
 
     useEffect(() => {
         if (Object.keys(patient).length) {
-            const { name, surname, email, admissionDate, symptoms } = patient
+            const { name, surname, email, admissionDate, hour, symptoms } = patient
             setName(name)
             setSurname(surname)
             setEmail(email)
             setAdmissionDate(admissionDate)
+            setHour(hour)
             setSymptoms(symptoms)
         }
     }, [patient])
@@ -30,7 +32,7 @@ function Form({ patients, setPatients, patient, setPatient }) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        if ([name, surname, email, admissionDate, symptoms].includes('')) {
+        if ([name, surname, email, admissionDate, hour, symptoms].includes('')) {
             setValidation(true)
             return
         }
@@ -42,6 +44,7 @@ function Form({ patients, setPatients, patient, setPatient }) {
             surname,
             email,
             admissionDate,
+            hour,
             symptoms
         }
 
@@ -59,6 +62,7 @@ function Form({ patients, setPatients, patient, setPatient }) {
         setSurname('')
         setEmail('')
         setAdmissionDate('')
+        setHour('')
         setSymptoms('')
 
     }
@@ -123,15 +127,28 @@ function Form({ patients, setPatients, patient, setPatient }) {
                 <div className="mb-5">
                     <label
                         className="block text-gray-700 uppercase font-bold"
-                        htmlFor="surname">
+                        htmlFor="admissionDate">
                         Admission Date
                     </label>
                     <input
                         className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                        id="surname"
+                        id="admissionDate"
                         type="date"
                         value={admissionDate}
                         onChange={e => setAdmissionDate(e.target.value)} />
+                </div>
+                <div className="mb-5">
+                    <label
+                        className="block text-gray-700 uppercase font-bold"
+                        htmlFor="hour">
+                        Hour
+                    </label>
+                    <input
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        id="hour"
+                        type='time'
+                        value={hour}
+                        onChange={e => setHour(e.target.value)} />
                 </div>
                 <div className="mb-5">
                     <label

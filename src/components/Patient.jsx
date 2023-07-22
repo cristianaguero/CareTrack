@@ -2,7 +2,7 @@
 
 function Patient( {patient, setPatient, deletePatient} ) {
 
-    const { name, surname, email, admissionDate, symptoms, id } = patient
+    const { name, surname, email, admissionDate, hour, symptoms, id } = patient
 
     function handleDelete() {
         const confirm = window.confirm('Are you sure you want to delete this patient?')
@@ -24,6 +24,9 @@ function Patient( {patient, setPatient, deletePatient} ) {
             </p>
             <p className="font-bold mb-3 text-gray-700 uppercase">Date: {''}
                 <span className="font-normal normal-case"> {admissionDate} </span>
+            </p>
+            <p className="font-bold mb-3 text-gray-700 uppercase">Hour: {''}
+                <span className="font-normal normal-case"> {hour} </span>
             </p>
             <p className="font-bold mb-3 text-gray-700 uppercase">Symptoms: {''}
                 <span className="font-normal normal-case"> {symptoms} </span>
