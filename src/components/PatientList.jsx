@@ -14,7 +14,7 @@ function PatientList({ patients, setPatient, deletePatient }) {
                         </span>
                     </p>
 
-                    {patients.map(patient => <Patient key={patient.id} patient={patient} setPatient={setPatient}n deletePatient={deletePatient} />)}
+                    {patients.map(patient => <Patient key={patient.id} patient={patient} setPatient={setPatient} deletePatient={deletePatient} />)}
                 </>
             ) : (
                 <>
